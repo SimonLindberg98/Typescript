@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="sick-spritesheet.png" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

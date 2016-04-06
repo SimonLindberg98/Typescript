@@ -1,1 +1,1 @@
-{"version":3,"file":"app.js","sourceRoot":"","sources":["app.ts"],"names":[],"mappings":"AAAA,kCAAkC"}
+{"version":3,"file":"app.js","sourceRoot":"","sources":["app.ts"],"names":["Player","Player.constructor"],"mappings":"AAAA,kCAAkC;AAElC;IAAAA;IAOAC,CAACA;IAADD,aAACA;AAADA,CAACA,AAPD,IAOC;AAED,IAAI,OAAO,GAAG,IAAI,WAAW,CAAC,sBAAsB,EAAE,EAAE,EAAE,EAAE,CAAC,CAAC;AAE9D,IAAI,QAAQ,GAAG,IAAI,SAAS,CAAC,OAAO,EAAE,CAAC,EAAE,CAAC,EAAE,CAAC,CAAC,CAAC;AAE/C,MAAM,GAAG;IACL,QAAQ,CAAC,SAAS,CAAC,EAAE,EAAE,EAAE,CAAC,CAAC;IAC3B,QAAQ,CAAC,WAAW,EAAE,CAAC;AAC3B,CAAC,CAAA"}
