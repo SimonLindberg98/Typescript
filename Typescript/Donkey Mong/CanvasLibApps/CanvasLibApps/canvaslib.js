@@ -5,7 +5,7 @@
 //
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
-var updatesPerSecond = 60;
+var updatesPerSecond = 120;
 var keyboard = {
     "up": false,
     "down": false,
