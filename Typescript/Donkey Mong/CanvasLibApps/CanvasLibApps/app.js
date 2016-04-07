@@ -83,23 +83,29 @@ update = function () {
         }
     }
     if (keyboard.right || keyboard.left || keyboard.up || keyboard.down) {
-        if (keyboard.right) {
-            x += charSpeed;
-            charSpeed = charSpeed * speedMultiplier;
-            moveRight.updateFrame();
-            left = 0;
-            right++;
-            spriteLeft = 0;
-            spriteRight = 1;
+        if (x > canvas.width - 40) {
         }
-        if (keyboard.left) {
-            x -= charSpeed;
-            charSpeed = charSpeed * speedMultiplier;
-            moveLeft.updateFrame();
-            right = 0;
-            left++;
-            spriteRight = 0;
-            spriteLeft = 1;
+        else {
+            if (keyboard.right) {
+                x += charSpeed;
+                charSpeed = charSpeed * speedMultiplier;
+                moveRight.updateFrame();
+                left = 0;
+                right++;
+                spriteLeft = 0;
+                spriteRight = 1;
+            }
+        }
+        if (x > 0) {
+            if (keyboard.left) {
+                x -= charSpeed;
+                charSpeed = charSpeed * speedMultiplier;
+                moveLeft.updateFrame();
+                right = 0;
+                left++;
+                spriteRight = 0;
+                spriteLeft = 1;
+            }
         }
     }
     else {
@@ -108,17 +114,23 @@ update = function () {
             if (charSpeed < 2) {
                 charSpeed = 2;
             }
-            if (right > 0) {
-                x += charSpeed;
-                if (charSpeed == 2) {
-                    right = 0;
+            if (x > canvas.width - 40) {
+            }
+            else {
+                if (right > 0) {
+                    x += charSpeed;
+                    if (charSpeed == 2) {
+                        right = 0;
+                    }
                 }
             }
-            if (left > 0) {
-                right = 0;
-                x -= charSpeed;
-                if (charSpeed == 2) {
-                    left = 0;
+            if (x > 0) {
+                if (left > 0) {
+                    right = 0;
+                    x -= charSpeed;
+                    if (charSpeed == 2) {
+                        left = 0;
+                    }
                 }
             }
         }
