@@ -24,6 +24,7 @@
   <ItemGroup>
     <Content Include="index.html" />
     <Content Include="sick-spritesheet - left.png" />
+    <Content Include="sick-spritesheet - leftv2.png" />
     <Content Include="sick-spritesheet - right.png" />
     <Content Include="sick-spritesheetv2.png" />
     <Content Include="web.config" />
