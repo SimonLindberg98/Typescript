@@ -1,22 +1,26 @@
 //Donkey Mong (totally not ripoff)
 var x = 50;
 var y = canvas.height - 60;
-var charSpeed = 2;
-var speedMultiplier = 1.004;
+var orgCharSpeed = 4;
+var altCharSpeed = 4;
+var speedMultiplier = 1.002;
 var brakeMultiplier = 1.03;
 var leftOngoingMove;
 var rightOngoingMove;
-var right = 0;
-var left = 0;
+var right = false;
+var left = false;
 var spriteLeft = 0;
 var spriteRight = 1;
 var spacePress = false;
-var jumpHeight = 10;
-var jumpUpDecrease = 0.004;
-var jumpDownIncrease = 1.4;
+var altJumpHeight = 40;
+var orgJumpHeight = 40;
+var jumpUpDecrease = 0.6;
+var jumpDownIncrease = 1.5;
 var inAir;
 var jump = false;
 var falling = false;
+var upCounter = 0;
+var downCounter = 0;
 var Player = (function () {
     function Player() {
     }
@@ -24,15 +28,15 @@ var Player = (function () {
 })();
 var charMoveLeft = new Spritesheet("sick-spritesheet - leftv2.png", 39.7, 40);
 var charMoveRight = new Spritesheet("sick-spritesheet - right.png", 38, 40);
-var moveLeft = new Animation(charMoveLeft, 9, 0, 7);
-var moveRight = new Animation(charMoveRight, 9, 0, 7);
+var moveLeft = new Animation(charMoveLeft, 8, 0, 7);
+var moveRight = new Animation(charMoveRight, 8, 0, 7);
 update = function () {
     clear();
     rectangle(0, canvas.height - 20, canvas.width, 20, "black");
-    var n = charSpeed.toString();
+    var n = altCharSpeed.toString();
     var o = right.toString();
     var p = left.toString();
-    var q = jumpHeight.toString();
+    var q = altJumpHeight.toString();
     var r = jumpUpDecrease.toString();
     text("CharSpeed: " + n, 0, 30, 40, "black");
     text("right: " + o, 0, 70, 40);
@@ -42,6 +46,9 @@ update = function () {
     text("jumpMultiplier: " + r, 0, 230, 40);
     text("Jump: " + jump, 0, 280, 40);
     text("Y:" + y, 0, 330, 40);
+    text("# of cycles going up: " + upCounter, 0, 380, 40);
+    text("# of cycles going down: " + downCounter, 0, 430, 40);
+    //Movement of character
     if (spriteLeft == 1) {
         moveLeft.drawFrame(x, y);
     }
@@ -61,25 +68,27 @@ update = function () {
     }
     if (jump == true) {
         if (falling == false) {
-            if (jumpHeight > 0) {
-                y -= jumpHeight;
-                jumpHeight = jumpHeight * jumpUpDecrease;
-                moveRight.updateFrame();
+            if (altJumpHeight > 0) {
+                y -= altJumpHeight;
+                upCounter++;
+                altJumpHeight = altJumpHeight * jumpUpDecrease;
             }
         }
-        if (jumpHeight <= 0.01) {
+        if (altJumpHeight <= 0.01) {
             falling = true;
         }
         if (falling == true) {
             //jumpHeight = 0.01;
-            y += jumpHeight;
-            moveRight.updateFrame();
-            jumpHeight = jumpHeight * jumpDownIncrease;
+            y += altJumpHeight;
+            downCounter++;
+            //moveRight.updateFrame();
+            altJumpHeight = altJumpHeight * jumpDownIncrease;
         }
         if (y >= (canvas.height - 60)) {
             jump = false;
             falling = false;
-            jumpHeight = 10;
+            altJumpHeight = orgJumpHeight;
+            y = (canvas.height - 60);
         }
     }
     if (keyboard.right || keyboard.left || keyboard.up || keyboard.down) {
@@ -87,49 +96,49 @@ update = function () {
         }
         else {
             if (keyboard.right) {
-                x += charSpeed;
-                charSpeed = charSpeed * speedMultiplier;
+                x += altCharSpeed;
+                altCharSpeed = altCharSpeed * speedMultiplier;
                 moveRight.updateFrame();
-                left = 0;
-                right++;
+                left = false;
+                right = true;
                 spriteLeft = 0;
                 spriteRight = 1;
             }
         }
         if (x > 0) {
             if (keyboard.left) {
-                x -= charSpeed;
-                charSpeed = charSpeed * speedMultiplier;
+                x -= altCharSpeed;
+                altCharSpeed = altCharSpeed * speedMultiplier;
                 moveLeft.updateFrame();
-                right = 0;
-                left++;
+                right = false;
+                left = true;
                 spriteRight = 0;
                 spriteLeft = 1;
             }
         }
     }
     else {
-        if (charSpeed > 2) {
-            charSpeed = charSpeed / brakeMultiplier;
-            if (charSpeed < 2) {
-                charSpeed = 2;
+        if (altCharSpeed > orgCharSpeed) {
+            altCharSpeed = altCharSpeed / brakeMultiplier;
+            if (altCharSpeed < orgCharSpeed) {
+                altCharSpeed = orgCharSpeed;
             }
             if (x > canvas.width - 40) {
             }
             else {
-                if (right > 0) {
-                    x += charSpeed;
-                    if (charSpeed == 2) {
-                        right = 0;
+                if (right == true) {
+                    x += altCharSpeed;
+                    if (altCharSpeed == orgCharSpeed) {
+                        right = false;
                     }
                 }
             }
             if (x > 0) {
-                if (left > 0) {
-                    right = 0;
-                    x -= charSpeed;
-                    if (charSpeed == 2) {
-                        left = 0;
+                if (left == true) {
+                    right = false;
+                    x -= altCharSpeed;
+                    if (altCharSpeed == orgCharSpeed) {
+                        left = false;
                     }
                 }
             }
